@@ -1,6 +1,5 @@
 import requests
 
-# BURAYA KENDİ BİLGİLERİNİ GİR
 BOT_TOKEN = "8950109676:AAEFjGnE09PSErDBLFAhr92G6Z_3w6lb3b4"
 CHAT_ID = "8809238477"
 
@@ -10,7 +9,14 @@ def send_telegram(msg):
         "chat_id": CHAT_ID,
         "text": msg
     }
-    requests.post(url, data=data)
+
+    response = requests.post(url, data=data)
+
+    print("Status Code:", response.status_code)
+    print("Response Text:", response.text)
+
+    if response.status_code != 200:
+        raise Exception(f"Telegram gönderim hatası: {response.text}")
 
 def main():
     send_telegram("✅ Bot çalışıyor! İlk test mesajı")
